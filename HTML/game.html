@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World-Class Dad Joke Machine</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-100 to-rose-100 flex items-center justify-center p-6">
+
+  <div class="w-full max-w-xl">
+    <div class="rounded-3xl shadow-2xl border-0 bg-white/80 backdrop-blur p-8 text-center space-y-6">
+
+      <div class="flex justify-center animate-bounce">
+        <span class="text-5xl">😂</span>
+      </div>
+
+      <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
+        World-Class Dad Joke Machine
+      </h1>
+
+      <p id="jokeText" class="text-lg text-gray-700 leading-relaxed min-h-[64px]"></p>
+
+      <div class="pt-4 flex justify-center gap-3">
+        <button
+          id="actionButton"
+          class="rounded-2xl px-6 py-4 text-base font-semibold shadow-lg bg-black text-white hover:scale-105 transition"
+        >
+          Ok, I’m ready
+        </button>
+      </div>
+
+      <p class="text-xs text-gray-500 pt-2">
+        Timing is everything.
+      </p>
+    </div>
+  </div>
+
+<script>
+  const jokes = [
+    { setup: "I told my wife she was drawing her eyebrows too high.", punchline: "She looked surprised." },
+    { setup: "Why don't eggs tell jokes?", punchline: "They'd crack each other up." },
+    { setup: "I only know 25 letters of the alphabet.", punchline: "I don't know y." },
+    { setup: "I used to hate facial hair…", punchline: "But then it grew on me." },
+    { setup: "Why did the scarecrow win an award?", punchline: "Because he was outstanding in his field." },
+    { setup: "I’m reading a book on anti-gravity.", punchline: "It’s impossible to put down." },
+    { setup: "Did you hear about the restaurant on the moon?", punchline: "Great food, no atmosphere." },
+    { setup: "Why do dads take an extra pair of socks when they go golfing?", punchline: "In case they get a hole in one." },
+    { setup: "I told my computer I needed a break,", punchline: "and now it won’t stop sending me KitKat ads." },
+    { setup: "Why can’t you hear a psychiatrist using the bathroom?", punchline: "Because the 'P' is silent." }
+  ];
+
+  let index = Math.floor(Math.random() * jokes.length);
+  let showingPunchline = false;
+
+  const jokeText = document.getElementById("jokeText");
+  const button = document.getElementById("actionButton");
+
+  function showSetup() {
+    jokeText.textContent = `“${jokes[index].setup}”`;
+    button.textContent = "Ok, I’m ready";
+    showingPunchline = false;
+  }
+
+  function showPunchline() {
+    jokeText.textContent = `“${jokes[index].punchline}”`;
+    button.textContent = "Another one";
+    showingPunchline = true;
+  }
+
+  button.addEventListener("click", () => {
+    if (!showingPunchline) {
+      showPunchline();
+    } else {
+      let next;
+      do {
+        next = Math.floor(Math.random() * jokes.length);
+      } while (next === index);
+      index = next;
+      showSetup();
+    }
+  });
+
+  showSetup();
+</script>
+
+</body>
+</html>
